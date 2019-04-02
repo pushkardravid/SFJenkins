@@ -19,4 +19,8 @@ public class dyanmicSearchController {
         }
         return fields;
     }
+
+    public static void test(){
+        System.debug('test');
+    }
 }
