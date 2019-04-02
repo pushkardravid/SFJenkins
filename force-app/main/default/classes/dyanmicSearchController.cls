@@ -20,7 +20,7 @@ public class dyanmicSearchController {
         return fields;
     }
 
-    public static void test(){
-        System.debug('test');
+    public static void sample(){
+        System.debug('this is a test');
     }
 }
