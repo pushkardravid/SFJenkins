@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <types>
+    <name>AuraDefinitionBundle</name>
+    <members>PAN_Hierarchy_Comp</members>
+    <members>QuoteCalc</members>
+    <members>QuoteCalcApp</members>
+    <members>dynamicSearch</members>
+    <members>dynamicSearchApp</members>
+    <members>expenses</members>
+  </types>
+  <types>
+    <name>ApexClass</name>
+    <members>PAN_Heirarchy_Comp_Controller</members>
+    <members>RestCallTest</members>
+    <members>RestSample</members>
+    <members>dyanmicSearchController</members>
+  </types>
+  <version>45.0</version>
+</Package>
