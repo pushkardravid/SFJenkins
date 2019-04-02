@@ -1,0 +1,196 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable" access="global" >
+   <aura:handler name="init" value="{!this}" action="{!c.init}" />
+   <aura:attribute name="showModal" type="boolean" default="false" />
+   <aura:attribute name="bcList" type="String[]"/>
+   <aura:attribute name="advList" type="Object[]"/>
+   <aura:attribute name="data" type="Object"/>
+   <aura:attribute name="columns" type="List"/>
+   <aura:attribute name="endpoint" type="String" default="https://k32ebygq8l.execute-api.us-east-2.amazonaws.com/dev" />
+   <aura:attribute name="activeSections" type="List" default="['A','C']" />
+   <aura:attribute name="activeSectionsMessage" type="String" default="" />
+   <aura:attribute name="bc_address" type="String"/>
+   <aura:attribute name="bc_number" type="String"/>
+   <aura:attribute name="bc_city" type="String"/>
+   <aura:attribute name="bc_state" type="String"/>
+   <aura:attribute name="adv_Age" type="String"/>
+   <aura:attribute name="adv_Class_01_Year" type="String"/>
+   <aura:attribute name="adv_Eid" type="String"/>
+   <aura:attribute name="adv_First_Name" type="String"/>
+   <aura:attribute name="adv_Last_Name" type="String"/>
+   <aura:attribute name="adv_Is_Disabled" type="String"/>
+   <aura:attribute name="adv_Is_Manager" type="String"/>
+   <aura:attribute name="adv_Is_Minority" type="String"/>
+   <aura:attribute name="adv_Is_Recruit_Credit" type="String"/>
+   <aura:attribute name="adv_Production_Months" type="String"/>
+   <aura:attribute name="adv_Type_Code" type="String"/>
+   <aura:attribute name="adv_Years_Of_Service" type="String"/>
+   <aura:attribute name="adv_Role" type="String"/>
+    
+   <lightning:card iconName="standard:contact" title="Business Center Locations">
+      <lightning:spinner variant="brand" aura:id="mySpinner" size="large"/>
+      <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-7"></div>
+         <div class="slds-col slds-size_5-of-7">
+            <div class="slds-grid slds-gutters">
+               <div class="slds-col">
+                  <lightning:select aura:id="bc_element" label=" ">
+                     <aura:iteration items="{!v.bcList}" var="bc">
+                        <option value="{!bc.bc_number}">{!bc.name}</option>
+                     </aura:iteration>
+                  </lightning:select>
+               </div>
+               <div class="slds-col">
+                  <br/>
+                  <lightning:button variant="brand" label="Search" onclick="{!c.getBusinessCenterDetails}" title="Search Business Centers"/>
+               </div>
+            </div>
+            <hr/>
+         </div>
+         <div class="slds-col slds-size_1-of-7"></div>
+      </div>
+      <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-7"></div>
+         <div class="slds-col slds-size_5-of-7">
+   
+         <lightning:accordion
+               allowMultipleSectionsOpen="true"
+               onsectiontoggle="{! c.handleSectionToggle }"
+               activeSectionName="{! v.activeSections }">
+               <lightning:accordionSection name="C" label="Business Center Details">
+                  <div class="slds-grid slds-gutters">
+                     <div class="slds-col slds-size_1-of-2">
+                        <p>Address</p>
+                        <p>Number</p>
+                        <p>City</p>
+                        <p>State</p>
+                     </div>
+                     <div class="slds-col slds-size_1-of-2">
+                        <p>{!v.bc_address}</p>
+                        <p>{!v.bc_number}</p>
+                        <p>{!v.bc_city}</p>
+                        <p>{!v.bc_state}</p>
+                     </div>
+                  </div>
+               </lightning:accordionSection>
+            </lightning:accordion>
+         </div>
+         <div class="slds-col slds-size_1-of-7"></div>
+      </div>
+      <div class="slds-col">
+         <br/>
+         <lightning:button variant="brand" label="Get Advisors" onclick="{!c.getPersonWithBCenter}" title="Get All Advisors"/>
+         <br/>
+         <!-- Lightning Data Table-->
+         <div style="height: 300px">
+            <lightning:datatable
+               keyField="eid"
+               data="{! v.data }"
+               columns="{! v.columns }"
+               hideCheckboxColumn="true"
+               onrowaction="{!c.viewRecord}"/>
+         </div>
+          
+          <aura:if isTrue="{!v.showModal}">
+          <div class="demo-only" style="height: 640px;">
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+      <header class="slds-modal__header">
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+          <span class="slds-assistive-text">Close</span>
+        </button>
+        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Advisor Detail</h2>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+       
+          <div class="demo-only demo-only--sizing slds-grid slds-wrap">
+                <div class="slds-size_1-of-5">
+                    <div>Age:</div>
+                </div>
+                <div class="slds-size_2-of-5">
+                    <div>{!v.adv_Age}</div>
+                </div>
+                <div class="slds-size_1-of-5">
+                    <p> EID:</p>
+                 </div>
+                 <div class="slds-size_1-of-5">
+                     <p>{!v.adv_Eid}</p>
+                </div>
+              
+                <div class="slds-size_1-of-5">
+                 <p> First Name:</p>
+                </div>
+              <div class="slds-size_2-of-5">
+                 <p> {!v.adv_First_Name}</p>
+                </div>
+                <div class="slds-size_1-of-5">
+                    <p> Last Name:</p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                    <p>{!v.adv_Last_Name}</p>
+                 </div>
+              
+                 <div class="slds-size_1-of-5">
+                    <p> Is_Disabled:</p>
+                 </div>
+              <div class="slds-size_2-of-5">
+                    <p> {!v.adv_Is_Disabled}</p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                    <p> Is_Manager: </p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                    <p>{!v.adv_Is_Manager}</p>
+                 </div>
+              
+              <div class="slds-size_1-of-5">
+                    <p> Is_Minority: </p>
+                 </div>
+              <div class="slds-size_2-of-5">
+                    <p> {!v.adv_Is_Minority}</p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                    <p> Is_Recruit_Credit: </p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                    <p>{!v.adv_Is_Recruit_Credit}</p>
+                 </div>
+              
+              <div class="slds-size_1-of-5">
+                    <p> Production_Months:</p>
+                 </div>
+              <div class="slds-size_2-of-5">
+                    <p> {!v.adv_Production_Months}</p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                   <p> Type_Code: </p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                   <p>{!v.adv_Type_Code}</p>
+                 </div>
+              
+              <div class="slds-size_1-of-5">
+                     <p> Years_Of_Service:</p>
+                 </div>
+              <div class="slds-size_2-of-5">
+                     <p> {!v.adv_Years_Of_Service}</p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                    <p> Role:</p>
+                 </div>
+              <div class="slds-size_1-of-5">
+                    <p> {!v.adv_Role}</p>
+                 </div>
+                </div>           
+        </div>
+      <footer class="slds-modal__footer">
+        <button class="slds-button slds-button_neutral" onclick="{!c.toggleModal}">Cancel</button>
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</div>
+          </aura:if>
+          
+      </div>
+   </lightning:card>
+</aura:component>

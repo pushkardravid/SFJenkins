@@ -1,0 +1,19 @@
+<aura:component controller="dyanmicSearchController" implements="force:appHostable,flexipage:availableForRecordHome,force:LightningQuickAction,force:hasRecordId" access="global">
+    
+    <aura:attribute name="options" type="List" default="[]"/>
+    
+    <aura:attribute name="query" type="String" default="SELECT * FROM "/>
+    
+    <aura:attribute name="obj" type="String" default=""/>
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    
+    <div class="slds-grid slds-gutters">
+  <div class="slds-col slds-size_1-of-3">
+         <lightning:combobox name="general" label="Many Options" placeholder="Select an Option" options="{! v.options }" onchange="{! c.handleChange }"/>
+  </div>
+        <div class="slds-col slds-size_2-of-3">
+            <p>{!v.query + v.obj}</p>
+        </div>     
+</div>
+</aura:component>

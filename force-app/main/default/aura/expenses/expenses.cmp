@@ -1,0 +1,92 @@
+<aura:component controller="RestSample">
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="age" type="Integer"/>
+    <aura:attribute name="weight" type="Integer"/>
+    <aura:attribute name="coverage" type="Integer"/>
+    <aura:attribute name="quote" type="Integer"/>
+    
+    <!-- PAGE HEADER -->
+    <lightning:layout class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem>
+            <lightning:icon iconName="standard:scan_card" alternativeText="My Quote"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <div class="page-section page-header">
+                <h1 class="slds-text-heading--label">Life Insurance Calculator</h1>
+                <h2 class="slds-text-heading--medium"></h2>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!-- / PAGE HEADER -->
+    <!-- NEW EXPENSE FORM -->
+    <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="6">
+        <!-- CREATE NEW EXPENSE -->
+    <div aria-labelledby="newexpenseform">
+        <!-- BOXED AREA -->
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+        <legend id="newexpenseform" class="slds-text-heading--small 
+          slds-p-vertical--medium">
+          Get quote
+        </legend>
+  
+        <!-- CREATE NEW EXPENSE FORM -->
+        <form class="slds-form--stacked">          
+            
+            <lightning:input aura:id="quoteForm" label="Age"
+                             required="true"
+                             name="quoteAge"
+                             value="{!v.age}"
+                             placeholder="Enter age in years"/>
+            
+            <lightning:input aura:id="quoteForm" label="Weight"
+                             required="true"
+                             name="quoteWeight"
+                             value="{!v.weight}"
+                             placeholder="Enter the age in kgs"/>
+            
+            <lightning:input aura:id="quoteForm" label="Coverage"
+                             required="true"
+                             name="quoteCoverage"
+                             value="{!v.coverage}"
+                             placeholder="Enter the coverage amount in $"/>
+            
+            <lightning:button label="Submit" 
+                              class="slds-m-top--medium"
+                              variant="brand"
+                              onclick="{!c.getQuoteAtion}"/>
+        </form> 
+           <hr/>
+  	   <lightning:card title="Quote">
+           <p class="slds-p-horizontal_small">
+               <aura:if isTrue="{!v.Spinner}">
+    <div aura:id="spinnerId" class="slds-spinner_container">
+       <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+         <span class="slds-assistive-text">Loading</span>
+         <div class="slds-spinner__dot-a"></div>
+         <div class="slds-spinner__dot-b"></div>
+       </div>
+    </div>
+ </aura:if>
+           <p>{!v.quote}</p>
+        </p>
+    </lightning:card>
+      </fieldset>
+      <!-- / BOXED AREA -->
+    </div>
+            
+          
+    		
+        </lightning:layoutItem>
+        
+        
+    </lightning:layout>
+       
+       
+    	
+    
+    	
+    <!-- / NEW EXPENSE FORM -->
+</aura:component>
